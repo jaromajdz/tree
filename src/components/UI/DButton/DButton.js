@@ -1,18 +1,16 @@
   import React, { Component } from 'react';
   import './DButton.css';
 
-  class DButton extends Component {
-      state = {
-        dsp: true
+const  dbutton =(props) => {
+      let style = "DButton"
+
+      if(props.show){
+        style = style + " " + "opena"
+      } else {
+        style = style + " " + "closea"
       }
 
-  onClickHandler = () => {
-        this.setState({dsp: !this.state.dsp})
-        this.props.show()
-        }
+      return <div className={style} onClick={props.click}>{props.show ? '-' : '+'}</div>
 
-      render(){
-        return <div className="DButton" onClick={()=>this.onClickHandler()}>{this.state.dsp ? '-' : '+'}</div>
-      }
   }
-export default DButton;
+export default dbutton;

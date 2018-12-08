@@ -21,3 +21,36 @@
   background-color: lightgrey;
 
 }
+
+
+.closea {
+  animation: close 0.3s;
+}
+
+.opena {
+  animation: opening 0.3s;
+}
+
+@keyframes close {
+
+	0% {
+		transform: rotate(0deg);
+		color: black;		}
+	100% {
+		transform: rotate(-180deg);
+		color: white;
+		}
+
+}
+
+@keyframes opening {
+
+	0% {
+		transform: rotate(0deg);
+		color: white;		}
+	100% {
+		transform: rotate(180deg);
+		color: black;
+		}
+
+}

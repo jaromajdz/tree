@@ -20,9 +20,13 @@ class Tree extends Component {
               }
 
             },
-        telewizory: null,
+        telewizory: {
+          OLED: null,
+          LCD: null
+        },
         inne_badziewie: null,
-      }
+      },
+      buttons: {}
     };
 
   //Display ul block or not elem_id is a key from state.tree
@@ -30,13 +34,38 @@ class Tree extends Component {
   showPlus = (elem_id) => {
       const vis = (this.elems[elem_id].style.display==="block" ? "none" : "block")
       this.elems[elem_id].style.display = vis;
+      const bt =  {...this.state.buttons}
+      bt[elem_id]=!bt[elem_id]
+      this.setState({buttons: {...bt}})
       }
 
   //solution for manin ul
 
   tree(tree){
+
+      if(!(Object.keys(this.state.buttons).length>0)){
+        const bt = this.buttons({...tree})
+        this.setState({buttons: {...bt}})
+        }
+
       return React.createElement('ul', {}, this.render_tree({...tree}))
   }
+  //Nodes
+  buttons(tree, buttons){
+
+      if (typeof(buttons)==='undefined'){
+        buttons = {}
+        }
+
+    for(let key in tree){
+      if(tree[key] instanceof Object){
+        buttons[key]=true;
+        this.buttons(tree[key], buttons)
+      }
+    }
+   return buttons
+  }
+
 
   //Making a tree
 
@@ -51,16 +80,16 @@ class Tree extends Component {
 
         if(tree[key] instanceof Object){
 
-            list.push(cr('li',{}, [
-                                  cr('div',{className: 'lidiv'}, [ <DButton show={()=>this.showPlus(key)}/> ,name]),
-                                  cr('ul', {style:{display: 'block'},ref: el=>this.elems[key]=el} ,this.render_tree(tree[key], level))
+            list.push(cr('li',{key: key+"0"}, [
+                                  cr('div',{className: 'lidiv', key: key + "1"}, [ <DButton click={()=>this.showPlus(key)} show={this.state.buttons[key]} key={key+"b" }/> ,name]),
+                                  cr('ul', {style:{display: 'block'}, key: key+"2",ref: el=>this.elems[key]=el} ,this.render_tree(tree[key], level))
                                   ]
                                 )
                               )
 
         } else {
 
-            list.push(cr('li',{}, cr('div',{className: 'lidiv'}, name)))
+            list.push(cr('li',{key: key+"0"}, cr('div',{className: 'lidiv'}, name)))
       }
 
     }
