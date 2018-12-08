@@ -1,16 +1,28 @@
   import React, { Component } from 'react';
   import './DButton.css';
 
-const  dbutton =(props) => {
-      let style = "DButton"
+class  DButton extends Component {
 
-      if(props.show){
-        style = style + " " + "opena"
-      } else {
-        style = style + " " + "closea"
+
+    stl = "DButton"
+
+    componentWillUpdate(nextProps, nextState){
+      if(nextProps.show!==this.props.show){
+
+        if(nextProps.show){
+          this.stl = "DButton" + " " + "opena"
+        } else {
+          this.stl = "DButton" + " " + "closea"
+        }
+
+      }else{
+        this.stl = "DButton"
       }
+    }
 
-      return <div className={style} onClick={props.click}>{props.show ? '-' : '+'}</div>
+    render(){
 
+        return <div className={this.stl} onClick={this.props.click}>{this.props.show ? '-' : '+'}</div>
+     }
   }
-export default dbutton;
+export default DButton;
