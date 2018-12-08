@@ -38,3 +38,27 @@ li {
 ul > li:last-child {
   border-left: 1px solid transparent;
 }
+
+.closeul {
+  animation: closeul 0.3s
+}
+
+.openul {
+  animation: openul 0.3s
+}
+
+@keyframes closeul {
+  0%{height: auto;
+     color: black;}
+  100%{height: 0;
+  color: white;
+  }
+}
+
+@keyframes openul {
+  0%{height: 0;
+  color: white;}
+  100%{height: auto;
+  color: black;
+  }
+}
